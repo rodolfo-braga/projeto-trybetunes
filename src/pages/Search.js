@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import AlbumCard from '../components/AlbumCard';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 
 class Search extends Component {
   constructor() {
@@ -7,6 +10,10 @@ class Search extends Component {
 
     this.state = {
       searchTerm: '',
+      isLoading: false,
+      searchDone: false,
+      albumsFetched: [],
+      lastSearch: '',
     };
   }
 
@@ -17,8 +24,47 @@ class Search extends Component {
     });
   }
 
-  render() {
+  handleClick = async () => {
+    this.setState({
+      isLoading: true,
+    });
     const { searchTerm } = this.state;
+    const result = await searchAlbumsAPI(searchTerm);
+
+    this.setState({
+      searchTerm: '',
+      isLoading: false,
+      searchDone: true,
+      albumsFetched: result,
+      lastSearch: searchTerm,
+    });
+  }
+
+  renderAlbums = () => {
+    const { albumsFetched, lastSearch } = this.state;
+
+    if (albumsFetched.length === 0) {
+      return (
+        <>
+          <h3>{`Resultado de álbuns de: ${lastSearch}`}</h3>
+          <h2>Nenhum álbum foi encontrado</h2>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <h3>{`Resultado de álbuns de: ${lastSearch}`}</h3>
+        <section>
+          { albumsFetched.map((album) => (
+            <AlbumCard key={ album.collectionId } album={ album } />)) }
+        </section>
+      </>
+    );
+  }
+
+  render() {
+    const { searchTerm, isLoading, searchDone } = this.state;
     const minimumLength = 2;
 
     return (
@@ -41,6 +87,8 @@ class Search extends Component {
         >
           Pesquisar
         </button>
+        { isLoading && <Loading /> }
+        { searchDone && this.renderAlbums() }
       </div>
     );
   }

@@ -12,56 +12,45 @@ class Album extends Component {
     this.state = {
       isLoading: true,
       musicList: [],
-      // musicListFetched: false,
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchMusicList();
+  }
+
+  fetchMusicList = async () => {
     const { match: { params: { id } } } = this.props;
     const result = await getMusics(id);
-    result.splice(0, 1);
 
-    this.onMount(() => this.setState({
+    this.setState({
       isLoading: false,
       musicList: result,
-      // musicListFetched: true,
-    }));
+    });
   }
 
-  onMount = (callback) => {
-    callback();
+  renderMusicList = () => {
+    const { musicList } = this.state;
+
+    return (
+      <section>
+        <h3 data-testid="album-name">{ musicList[0].collectionName }</h3>
+        <h4 data-testid="artist-name">{ musicList[0].artistName }</h4>
+        {musicList.slice(1).map((music) => (
+          <MusicCard key={ music.trackId } music={ music } />
+        ))}
+      </section>
+    );
   }
-
-  // renderMusicList = () => {
-  //   const { musicList } = this.state;
-
-  //   return (
-  //     <section>
-  //       <h3 data-testid="album-name">{ musicList[0].collectionName }</h3>
-  //       <h4 data-testid="artist-name">{ musicList[0].artistName }</h4>
-  //       {musicList.map((music) => (
-  //         <MusicCard key={ music.trackId } music={ music } />
-  //       ))}
-  //     </section>
-  //   );
-  // }
 
   render() {
-    const { isLoading, musicList } = this.state;
+    const { isLoading } = this.state;
 
     return (
       <div data-testid="page-album">
         <Header />
         <h1>Album</h1>
-        { isLoading ? <Loading /> : (
-          <section>
-            <h3 data-testid="album-name">{ musicList[0].collectionName }</h3>
-            <h4 data-testid="artist-name">{ musicList[0].artistName }</h4>
-            {musicList.map((music) => (
-              <MusicCard key={ music.trackId } music={ music } />
-            ))}
-          </section>
-        ) }
+        { isLoading ? <Loading /> : this.renderMusicList() }
       </div>
     );
   }

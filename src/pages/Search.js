@@ -57,7 +57,11 @@ class Search extends Component {
         <h3>{`Resultado de álbuns de: ${lastSearch}`}</h3>
         <section>
           { albumsFetched.map((album) => (
-            <AlbumCard key={ album.collectionId } album={ album } />)) }
+            <AlbumCard
+              key={ album.collectionId }
+              album={ album }
+            />
+          )) }
         </section>
       </>
     );

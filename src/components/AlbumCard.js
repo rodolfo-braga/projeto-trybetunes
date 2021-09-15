@@ -25,7 +25,7 @@ class AlbumCard extends Component {
 }
 
 AlbumCard.propTypes = {
-  album: PropTypes.objectOf({
+  album: PropTypes.shape({
     collectionId: PropTypes.number,
     artworkUrl100: PropTypes.string,
     collectionName: PropTypes.string,

@@ -59,6 +59,7 @@ class Search extends Component {
           { albumsFetched.map((album) => (
             <AlbumCard
               key={ album.collectionId }
+              artistName={ lastSearch }
               album={ album }
             />
           )) }

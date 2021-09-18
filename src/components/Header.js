@@ -13,19 +13,16 @@ class Header extends Component {
     };
   }
 
-  async componentDidMount() {
-    const user = await getUser();
-
-    this.onMount(() => {
-      this.setState({
-        userName: user.name,
-        isLoading: false,
-      });
-    });
+  componentDidMount() {
+    this.getUserName();
   }
 
-  onMount = (callback) => {
-    callback();
+  getUserName = async () => {
+    const user = await getUser();
+    this.setState({
+      userName: user.name,
+      isLoading: false,
+    });
   }
 
   render() {

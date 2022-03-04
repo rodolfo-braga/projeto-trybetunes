@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import AlbumCard from '../components/AlbumCard';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
-import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import AlbumCard from '../../components/AlbumCard/AlbumCard';
+import Header from '../../components/Header/Header';
+import Loading from '../../components/Loading';
+import searchAlbumsAPI from '../../services/searchAlbumsAPI';
+import './Search.css';
 
 class Search extends Component {
   constructor() {
@@ -54,8 +55,8 @@ class Search extends Component {
 
     return (
       <>
-        <h3>{`Resultado de álbuns de: ${lastSearch}`}</h3>
-        <section>
+        <h3 className="result-album-text">{`Resultado de álbuns de: ${lastSearch}`}</h3>
+        <section className="albums-container">
           { albumsFetched.map((album) => (
             <AlbumCard
               key={ album.collectionId }
@@ -73,28 +74,34 @@ class Search extends Component {
     const minimumLength = 2;
 
     return (
-      <div data-testid="page-search">
+      <section
+        data-testid="page-search"
+        className="page-search"
+      >
         <Header />
-        <h1>Search</h1>
-        <input
-          type="text"
-          name="searchTerm"
-          placeholder="Nome do Artista"
-          value={ searchTerm }
-          onChange={ this.handleChange }
-          data-testid="search-artist-input"
-        />
-        <button
-          type="button"
-          onClick={ this.handleClick }
-          disabled={ searchTerm.length < minimumLength }
-          data-testid="search-artist-button"
-        >
-          Pesquisar
-        </button>
+        <div className="search-artist-container">
+          <input
+            type="text"
+            name="searchTerm"
+            placeholder="Nome do Artista"
+            value={ searchTerm }
+            onChange={ this.handleChange }
+            data-testid="search-artist-input"
+            className="search-artist-input"
+          />
+          <button
+            type="button"
+            onClick={ this.handleClick }
+            disabled={ searchTerm.length < minimumLength }
+            data-testid="search-artist-button"
+            className="search-artist-button"
+          >
+            Pesquisar
+          </button>
+        </div>
         { isLoading && <Loading /> }
         { searchDone && this.renderAlbums() }
-      </div>
+      </section>
     );
   }
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Album from './pages/Album';
+import Album from './pages/Album/Album';
 import Favorites from './pages/Favorites';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
-import Search from './pages/Search';
+import Search from './pages/Search/Search';
 import NotFound from './pages/NotFound';
 
 class App extends React.Component {

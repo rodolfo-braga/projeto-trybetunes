@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import Loading from '../components/Loading';
 import { getUser } from '../services/userAPI';
 
@@ -31,7 +31,6 @@ class Profile extends Component {
     return (
       <div data-testid="page-profile">
         <Header />
-        <h1>Profile</h1>
         { isLoading ? <Loading /> : (
           <section>
             <img src={ image } alt="Foto do usuário" data-testid="profile-image" />

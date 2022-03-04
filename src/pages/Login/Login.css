@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+  font-family: -apple-system , BlinkMacSystemFont , Segoe UI , Open Sans , sans-serif;
+}
+
+.page-login {
+  align-items: center;
+  background-color: #fafafa;
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  padding-top: 125px;
+}
+
+.login-container {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-flow: column wrap;
+  margin: 20px;
+  max-width: 90%;
+  min-width: 30%;
+  padding: 60px;
+}
+
+.logo-dark {
+  margin-bottom: 75px;
+}
+
+.name-input {
+  padding: 10px;
+}
+
+.login-button {
+  background-color: rgba(25, 25, 207, 0.75);
+  border-radius: 7px;
+  color: #fafafa;
+  font-size: 1em;
+  font-weight: 500;
+  margin-top: 15px;
+  padding: 10px;
+}
